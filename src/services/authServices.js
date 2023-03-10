@@ -36,10 +36,11 @@ const login = async (userDetails) => {
 const validate = async(token) => {
     const userId = await getFromRedis(token);
     if(!userId){
-        throw new Error('Invalid token');
+        // throw new Error('Invalid token');
+        return jwt.verify(token, 'secret')
     }
+    return true
     // return jwt.verify(token, process.env.TOKEN_SECRET)
-    return jwt.verify(token, 'secret')
 
 }
 
